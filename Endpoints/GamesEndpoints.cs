@@ -34,14 +34,19 @@ public static class GamesEndpoints
     group.MapGet("/", () => games);
 
     group.MapGet("/{id}", (int id) =>
-{
-  var game = games.Find(g => g.Id == id);
-  return game is null ? Results.NotFound() : Results.Ok(game);
-})
-.WithName(GetGameEndpointName);
+    {
+      var game = games.Find(g => g.Id == id);
+      return game is null ? Results.NotFound() : Results.Ok(game);
+    })
+    .WithName(GetGameEndpointName);
 
     group.MapPost("/", (CreateGameDto newGame) =>
     {
+      if (string.IsNullOrWhiteSpace(newGame.Name))
+      {
+        return Results.BadRequest("Game name is required");
+      }
+
       GameDto game = new(
         games.Count + 1,
         newGame.Name,
