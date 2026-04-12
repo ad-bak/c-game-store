@@ -103,9 +103,9 @@ public static class GamesEndpoints
       return Results.NoContent();
     });
 
-    group.MapDelete("/{id}", (int id) =>
+    group.MapDelete("/{id}", async (int id, GameStoreContext dbContext) =>
     {
-      games.RemoveAll(g => g.Id == id);
+      await dbContext.Games.Where(game => game.Id == id).ExecuteDeleteAsync();
       return Results.NoContent();
     });
   }
