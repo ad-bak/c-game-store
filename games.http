@@ -10,7 +10,7 @@ Content-Type: application/json
 
 {
   "name": "The Witcher 3: Wild Hunt",
-  "genre": "RPG",
+  "genreId": "3",
   "price": 29.99,
   "releaseDate": "2021-10-15"
 }
